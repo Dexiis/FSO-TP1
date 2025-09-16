@@ -137,7 +137,7 @@ public class TP1_GUI {
 		btnFrente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reta(Integer.parseInt(textDistancia.getText()));
-				textArea.append("O Rôbo anda " + textDistancia.getText() + " centimetros para a frente.\n");
+				textArea.append("O Rôbo andou " + textDistancia.getText() + " centimetros para a frente.\n");
 			}
 		});
 		btnFrente.setBounds(259, 106, 133, 36);
@@ -173,14 +173,20 @@ public class TP1_GUI {
 		btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnDireita.setBounds(391, 140, 133, 36);
 		frmAd.getContentPane().add(btnDireita);
+		btnDireita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				curvarDireita(Integer.parseInt(textRaio.getText()), Integer.parseInt(textAngulo.getText()));
+				textArea.append("O Rôbo curvou para a direita num angulo de " + textAngulo.getText()
+						+ " com um raio de " + textRaio.getText() + ".\n");
+			}
+		});
 
 		JButton btnTras = new JButton("TRÁS");
 		btnTras.setBackground(new Color(192, 192, 192));
 		btnTras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				curvarDireita(Integer.parseInt(textRaio.getText()), Integer.parseInt(textAngulo.getText()));
-				textArea.append("O Rôbo curvou para a direita num angulo de " + textAngulo.getText()
-						+ " com um raio de " + textRaio.getText() + ".\n");
+				reta(-Integer.parseInt(textDistancia.getText()));
+				textArea.append("O Rôbo andou " + textDistancia.getText() + " centimetros para trás.\n");
 			}
 		});
 		btnTras.setFont(new Font("Tahoma", Font.PLAIN, 20));
