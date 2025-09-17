@@ -65,18 +65,35 @@ public class TP1_GUI {
 		frmAd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAd.getContentPane().setLayout(null);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 325, 668, 181);
-		frmAd.getContentPane().add(scrollPane);
+		JLabel lblRaio = new JLabel("Raio");
+		lblRaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRaio.setBounds(10, 10, 42, 29);
+		frmAd.getContentPane().add(lblRaio);
 
-		JTextArea textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.append("TESTE1\n");
+		JLabel lblAngulo = new JLabel("Ângulo");
+		lblAngulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblAngulo.setBounds(129, 10, 59, 29);
+		frmAd.getContentPane().add(lblAngulo);
 
-		JLabel lblNewLabel = new JLabel("Raio");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 10, 42, 29);
-		frmAd.getContentPane().add(lblNewLabel);
+		JLabel lblDistancia = new JLabel("Distância");
+		lblDistancia.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDistancia.setBounds(263, 10, 83, 29);
+		frmAd.getContentPane().add(lblDistancia);
+
+		JLabel lblRobot = new JLabel("Robot");
+		lblRobot.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRobot.setBounds(506, 10, 59, 29);
+		frmAd.getContentPane().add(lblRobot);
+
+		JLabel lblNumero = new JLabel("Número");
+		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNumero.setBounds(284, 221, 71, 29);
+		frmAd.getContentPane().add(lblNumero);
+
+		JLabel lblConsola = new JLabel("Consola");
+		lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblConsola.setBounds(10, 297, 77, 29);
+		frmAd.getContentPane().add(lblConsola);
 
 		textRaio = new JTextField();
 		textRaio.setHorizontalAlignment(SwingConstants.CENTER);
@@ -86,11 +103,6 @@ public class TP1_GUI {
 		frmAd.getContentPane().add(textRaio);
 		textRaio.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Ângulo");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(129, 10, 59, 29);
-		frmAd.getContentPane().add(lblNewLabel_1);
-
 		textAngulo = new JTextField();
 		textAngulo.setHorizontalAlignment(SwingConstants.CENTER);
 		textAngulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -98,11 +110,6 @@ public class TP1_GUI {
 		textAngulo.setBounds(190, 11, 46, 28);
 		frmAd.getContentPane().add(textAngulo);
 		textAngulo.setColumns(10);
-
-		JLabel lblNewLabel_1_1 = new JLabel("Distância");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1_1.setBounds(263, 10, 83, 29);
-		frmAd.getContentPane().add(lblNewLabel_1_1);
 
 		textDistancia = new JTextField();
 		textDistancia.setText("33");
@@ -112,11 +119,6 @@ public class TP1_GUI {
 		textDistancia.setBounds(348, 11, 46, 28);
 		frmAd.getContentPane().add(textDistancia);
 
-		JLabel lblNewLabel_1_2 = new JLabel("Robot");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1_2.setBounds(506, 10, 59, 29);
-		frmAd.getContentPane().add(lblNewLabel_1_2);
-
 		textRobot = new JTextField();
 		textRobot.setText("Ze");
 		textRobot.setHorizontalAlignment(SwingConstants.CENTER);
@@ -125,10 +127,27 @@ public class TP1_GUI {
 		textRobot.setBounds(567, 11, 90, 28);
 		frmAd.getContentPane().add(textRobot);
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 325, 668, 181);
+		frmAd.getContentPane().add(scrollPane);
+
+		JTextArea textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+
 		JCheckBox chckbxLigado = new JCheckBox("Ligar");
 		chckbxLigado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		chckbxLigado.setBounds(567, 46, 71, 28);
 		frmAd.getContentPane().add(chckbxLigado);
+
+		JSpinner spinnerNumber = new JSpinner();
+		spinnerNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		spinnerNumber.setBounds(358, 221, 42, 29);
+		frmAd.getContentPane().add(spinnerNumber);
+
+		JRadioButton rdbtnMovimentosAleatorios = new JRadioButton("Movimentos Aleatórios");
+		rdbtnMovimentosAleatorios.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		rdbtnMovimentosAleatorios.setBounds(422, 225, 216, 20);
+		frmAd.getContentPane().add(rdbtnMovimentosAleatorios);
 
 		JButton btnFrente = new JButton("FRENTE");
 		btnFrente.setForeground(new Color(0, 0, 0));
@@ -192,25 +211,5 @@ public class TP1_GUI {
 		btnTras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnTras.setBounds(259, 174, 133, 36);
 		frmAd.getContentPane().add(btnTras);
-
-		JSpinner spinnerNumber = new JSpinner();
-		spinnerNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		spinnerNumber.setBounds(358, 221, 42, 29);
-		frmAd.getContentPane().add(spinnerNumber);
-
-		JLabel lblNewLabel_1_3 = new JLabel("Número");
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1_3.setBounds(284, 221, 71, 29);
-		frmAd.getContentPane().add(lblNewLabel_1_3);
-
-		JRadioButton rdbtnMovimentosAleatorios = new JRadioButton("Movimentos Aleatórios");
-		rdbtnMovimentosAleatorios.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnMovimentosAleatorios.setBounds(422, 225, 216, 20);
-		frmAd.getContentPane().add(rdbtnMovimentosAleatorios);
-
-		JLabel lblConsola = new JLabel("Consola");
-		lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblConsola.setBounds(10, 297, 77, 29);
-		frmAd.getContentPane().add(lblConsola);
 	}
 }
