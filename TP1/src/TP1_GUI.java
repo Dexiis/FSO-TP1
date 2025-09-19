@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
 public class TP1_GUI {
-
+	
 	private JFrame frmAd;
 	private JTextField textRaio;
 	private JTextField textAngulo;
@@ -25,7 +25,9 @@ public class TP1_GUI {
 	private JTextField textRobot;
 	
 	private Dados dados;
-
+	
+	private RobotLegoEV3 robot;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,6 +44,7 @@ public class TP1_GUI {
 	public TP1_GUI() {
 		initialize();
 		dados = new Dados();
+		robot = new RobotLegoEV3();
 	}
 	
 	private void setDistance(int distance) {
