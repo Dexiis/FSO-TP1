@@ -36,7 +36,7 @@ public class Dados implements IMovement {
 
 	@Override
 	public void reta(int distance) {
-		movement = (distance / 0.02) + 100;
+		//robot.Reta((distance / 0.02) + 100);
 	}
 
 	@Override

@@ -143,6 +143,14 @@ public class TP1_GUI {
 		chckbxLigado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		chckbxLigado.setBounds(567, 46, 71, 28);
 		frmAd.getContentPane().add(chckbxLigado);
+		chckbxLigado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chckbxLigado.isSelected() && textRobot.getText() != null) {
+					robot.OpenEV3(textRobot.getText());
+				}
+			}
+		});
+		
 
 		JSpinner spinnerNumber = new JSpinner();
 		spinnerNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -160,6 +168,7 @@ public class TP1_GUI {
 		btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFrente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				robot.Reta(20);
 				setDistance(Integer.parseInt(textDistancia.getText()));
 				textArea.append("O Rôbo andou " + textDistancia.getText() + " centimetros para a frente.\n");
 			}
@@ -171,7 +180,7 @@ public class TP1_GUI {
 		btnParar.setBackground(new Color(217, 0, 5));
 		btnParar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parar();
+				robot.Parar(true);
 				textArea.append("O Rôbo parou.\n");
 			}
 		});
