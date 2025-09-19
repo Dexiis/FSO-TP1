@@ -1,4 +1,3 @@
-package gui;
 
 import java.awt.EventQueue;
 
@@ -24,6 +23,8 @@ public class TP1_GUI {
 	private JTextField textAngulo;
 	private JTextField textDistancia;
 	private JTextField textRobot;
+	
+	private Dados dados;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -40,10 +41,11 @@ public class TP1_GUI {
 
 	public TP1_GUI() {
 		initialize();
+		dados = new Dados();
 	}
-
-	private double reta(int distancia) {
-		return (distancia / 0.02) + 100;
+	
+	private void setDistance(int distance) {
+		dados.setDistance(distance);
 	}
 
 	private double curvarDireita(int raio, int angulo) {
@@ -155,7 +157,7 @@ public class TP1_GUI {
 		btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFrente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reta(Integer.parseInt(textDistancia.getText()));
+				setDistance(Integer.parseInt(textDistancia.getText()));
 				textArea.append("O Rôbo andou " + textDistancia.getText() + " centimetros para a frente.\n");
 			}
 		});
@@ -204,7 +206,7 @@ public class TP1_GUI {
 		btnTras.setBackground(new Color(192, 192, 192));
 		btnTras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reta(-Integer.parseInt(textDistancia.getText()));
+				setDistance(-Integer.parseInt(textDistancia.getText()));
 				textArea.append("O Rôbo andou " + textDistancia.getText() + " centimetros para trás.\n");
 			}
 		});
