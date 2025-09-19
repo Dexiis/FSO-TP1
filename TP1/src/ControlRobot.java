@@ -1,16 +1,17 @@
 import java.util.ArrayList;
 
-public class ControlarRobot extends Thread {
+public class ControlRobot extends Thread {
 	
 	ArrayList<String> commands;
 
 	
-	public ControlarRobot() {
+	public ControlRobot() {
 		commands = new ArrayList<String>();
 	}
+
 	
 	public void run() {
-		ControlarRobot r1 = new ControlarRobot();
+		ControlRobot r1 = new ControlRobot();
 		r1.start();
 	}
 	
