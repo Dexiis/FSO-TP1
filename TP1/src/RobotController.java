@@ -21,6 +21,10 @@ public class RobotController {
 	public void turnOnRobot() {
 		robot.OpenEV3(data.getName());
 	}
+	
+	public void turnOffRobot() {
+		robot.CloseEV3();
+	}
 
 	public void moveFowards() {
 		robot.Reta(data.getDistance());
@@ -35,7 +39,7 @@ public class RobotController {
 	}
 
 	public void moveLeftCurve() {
-		robot.CurvarDireita(data.getRadius(), -data.getAngle());
+		robot.CurvarEsquerda(data.getRadius(), data.getAngle());
 	}
 
 	public void stop() {

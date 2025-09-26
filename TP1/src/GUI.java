@@ -179,6 +179,10 @@ public class GUI {
 		chckbxOnOff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
+				if (chckbxOnOff.isSelected())
+					robotController.turnOnRobot();
+				else
+					robotController.turnOffRobot();
 			}
 		});
 
