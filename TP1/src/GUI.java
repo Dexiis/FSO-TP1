@@ -186,7 +186,7 @@ public class GUI {
 			}
 		});
 
-		JButton btnFoward = new JButton("FOWARD");
+		JButton btnFoward = new JButton("FORWARD");
 		btnFoward.setForeground(new Color(0, 0, 0));
 		btnFoward.setBackground(new Color(128, 255, 128));
 		btnFoward.setFont(new Font("Tahoma", Font.PLAIN, 20));
