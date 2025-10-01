@@ -1,56 +1,54 @@
+import java.util.ArrayList;
+import java.util.Random;
 
-public class RandomMovements {
+public class RandomMovements extends Thread{
 	
 	private int distance;
 	private int angle;
 	private int radius;
 	private int direction;
+	private int number;
 
-	public RandomMovements(int direction, int radius, int angle, int distance){
-		this.direction = direction;
-		this.angle = angle;
-		this.radius = radius;
-		this.distance = distance;
+	public RandomMovements(int number){
+		this.number = number;
+		generate();
+		
 	}
 	
-	public int getDirection() {
-		return direction;
-	}
+	public void generate() {
+		
+		Random random = new Random();
+		ArrayList<RandomMovements> movements = new ArrayList<>();
+		for (int i = 0; i < number; i++) {
+			int direction = random.nextInt(3);
+			if (direction == FORWARD)
+				movements.add(new RandomMovements(FORWARD, 0, 0, random.nextInt(40) + 10));
+			else if (direction == BACKWARDS)
+				movements.add(new RandomMovements(BACKWARDS, 0, 0, random.nextInt(40) - 50));
+			else
+				movements.add(new RandomMovements(direction, random.nextInt(20) + 10, random.nextInt(70) + 20, 0));
+		}
 
-	public void setDirection(int direction) {
-		this.direction = direction;
+		for (RandomMovements movement : movements) {
+			if (movement.getDirection() == FORWARD || movement.getDirection() == BACKWARDS) {
+				robot.Reta(movement.getDistance());
+				try {
+					Thread.sleep(movement.getDelayStraightLine());
+				} catch (InterruptedException e) {
+				}
+			} else if (movement.getDirection() == RIGHT) {
+				robot.CurvarDireita(data.getRadius(), data.getAngle());
+				try {
+					Thread.sleep(movement.getDelayCurve());
+				} catch (InterruptedException e) {
+				}
+			} else if (movement.getDirection() == LEFT) {
+				robot.CurvarEsquerda(data.getRadius(), data.getAngle());
+				try {
+					Thread.sleep(movement.getDelayCurve());
+				} catch (InterruptedException e) {
+				}
+			}
+		}
 	}
-	
-	public int getRadius() {
-		return radius;
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-
-	public int getAngle() {
-		return angle;
-	}
-
-	public void setAngle(int angle) {
-		this.angle = angle;
-	}
-
-	public int getDistance() {
-		return distance;
-	}
-
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
-	
-	public int getDelayStraightLine() {
-		return (int) ((Math.abs(distance) / 0.02) + 100);
-	}
-
-	public int getDelayCurve() {
-		return (int) (((radius * angle) / 0.02) + 100);
-	}
-
 }
