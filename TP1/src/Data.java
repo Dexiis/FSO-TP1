@@ -3,20 +3,15 @@ public class Data {
 	private int distance;
 	private int angle;
 	private int radius;
-	private int number;
+	private int actionNumber;
 	private String name;
-	private boolean turnedOn;
-	private boolean randomMovements;
 
-	public Data(int radius, int angle, int distance, int number, String name, boolean turnedOn,
-			boolean randomMovements) {
+	public Data(int radius, int angle, int distance, int actionNumber, String name) {
 		this.distance = distance;
 		this.angle = angle;
 		this.radius = radius;
-		this.number = number;
+		this.actionNumber = actionNumber;
 		this.name = name;
-		this.turnedOn = turnedOn;
-		this.randomMovements = randomMovements;
 	}
 
 	public int getRadius() {
@@ -43,12 +38,12 @@ public class Data {
 		this.distance = distance;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getActionNumber() {
+		return actionNumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setActionNumber(int actionNumber) {
+		this.actionNumber = actionNumber;
 	}
 
 	public String getName() {
@@ -59,28 +54,12 @@ public class Data {
 		this.name = name;
 	}
 
-	public boolean getTurnedOn() {
-		return turnedOn;
+	public int getDelayStraightLine() {
+		return (int) ((distance / 0.02) + 100);
 	}
 
-	public void setTurnedOn(boolean turnedOn) {
-		this.turnedOn = turnedOn;
-	}
-
-	public boolean getRandomMovements() {
-		return randomMovements;
-	}
-
-	public void setRandomMovements(boolean randomMovements) {
-		this.randomMovements = randomMovements;
-	}
-
-	public double getDelayStraightLine() {
-		return (distance / 0.02) + 100;
-	}
-
-	public double getDelayCurve() {
-		return ((radius * angle) / 0.02) + 100;
+	public int getDelayCurve() {
+		return (int) (((Math.toRadians(90) * angle) / 0.02) + 100);
 	}
 
 }

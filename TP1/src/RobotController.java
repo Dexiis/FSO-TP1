@@ -1,28 +1,26 @@
-import java.util.ArrayList;
-import java.util.Random;
 
 public class RobotController {
 
-	Data data = new Data(0, 0, 0, 0, null, false, false);
-	int FORWARD = 0;
-	int BACKWARDS = 1;
-	int RIGHT = 2;
-	int LEFT = 3;
+	private Data data = new Data(0, 0, 0, 0, null);
+	private RobotLegoEV3 robot = new RobotLegoEV3();
+	
+	private Thread randomMovementsThread;
 
 	public RobotController() {
 	}
 
-	private RobotLegoEV3 robot = new RobotLegoEV3();
-
-	public void updateData(String radius, String angle, String distance, String name, String number,
-			boolean randomMovements, boolean turnedOn) {
+	public void updateData(String radius, String angle, String distance, String name, String actionNumber) {
 		data.setRadius(Integer.parseInt(radius));
 		data.setAngle(Integer.parseInt(angle));
 		data.setDistance(Integer.parseInt(distance));
 		data.setName(name);
-		data.setNumber(Integer.parseInt(number));
-		data.setRandomMovements(randomMovements);
-		data.setTurnedOn(turnedOn);
+		data.setActionNumber(Integer.parseInt(actionNumber));
+	}
+	
+	public void updateData(int radius, int angle, int distance) {
+		data.setRadius(radius);
+		data.setAngle(angle);
+		data.setDistance(distance);
 	}
 
 	public void turnOnRobot() {
@@ -50,10 +48,25 @@ public class RobotController {
 	}
 
 	public void randomMovements() {
-		RandomMovements randomMovements = new RandomMovements(data.getNumber());		
+		randomMovementsThread = new Thread(new RandomMovements(data.getActionNumber()));
+		randomMovementsThread.start();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void stopRandomMovements() {
+		if (randomMovementsThread != null) randomMovementsThread.stop();
 	}
 
 	public void stopMovement() {
 		robot.Parar(true);
 	}
+	
+	public int getDelayStraightLine() {
+		return data.getDelayStraightLine();
+	}
+
+	public int getDelayCurve() {
+		return data.getDelayCurve();
+	}
+	
 }

@@ -51,8 +51,7 @@ public class GUI {
 
 	public void updateData() {
 		robotController.updateData(textRadius.getText(), textAngle.getText(), textDistance.getText(),
-				textRobotName.getText(), spinnerNumber.getValue().toString(), rdbtnRandomMovements.isSelected(),
-				chckbxOnOff.isSelected());
+				textRobotName.getText(), spinnerNumber.getValue().toString());
 	}
 
 	private void initialize() {
@@ -166,14 +165,15 @@ public class GUI {
 		rdbtnRandomMovements.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				if (rdbtnRandomMovements.isEnabled()) {
+				if (rdbtnRandomMovements.isSelected()) {
 					robotController.randomMovements();
+					System.out.println("Bao");
 				} else {
-					//Parar RandomMovements. Eliminar Thread????
-					}
+					robotController.stopRandomMovements();
+					System.out.println("Cabum");
 				}
 			}
-		);
+		});
 		rdbtnRandomMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		rdbtnRandomMovements.setBounds(422, 225, 187, 20);
 		frmAd.getContentPane().add(rdbtnRandomMovements);
