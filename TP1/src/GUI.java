@@ -168,9 +168,12 @@ public class GUI {
 				updateData();
 				if (rdbtnRandomMovements.isEnabled()) {
 					robotController.randomMovements();
+				} else {
+					//Parar RandomMovements. Eliminar Thread????
+					}
 				}
 			}
-		});
+		);
 		rdbtnRandomMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		rdbtnRandomMovements.setBounds(422, 225, 187, 20);
 		frmAd.getContentPane().add(rdbtnRandomMovements);
