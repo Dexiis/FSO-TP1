@@ -166,6 +166,9 @@ public class GUI {
 		rdbtnRandomMovements.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
+				if (rdbtnRandomMovements.isEnabled()) {
+					robotController.randomMovements();
+				}
 			}
 		});
 		rdbtnRandomMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -203,7 +206,7 @@ public class GUI {
 		btnStop.setBackground(new Color(217, 0, 5));
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				robotController.stop();
+				robotController.stopMovement();
 				textArea.append("O Rôbo parou.\n");
 			}
 		});
