@@ -23,7 +23,7 @@ public class RandomMovements extends Thread {
 			robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20, random.nextInt(40) + 10);
 			
 			if (direction == FORWARD) {
-				robotController.moveFowards();
+				robotController.moveForwards();
 				try {
 					Thread.sleep(robotController.getDelayStraightLine());
 				} catch (InterruptedException e) {

@@ -31,7 +31,7 @@ public class RobotController {
 		robot.CloseEV3();
 	}
 
-	public void moveFowards() {
+	public void moveForwards() {
 		robot.Reta(data.getDistance());
 	}
 

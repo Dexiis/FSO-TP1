@@ -198,7 +198,7 @@ public class GUI {
 		btnFoward.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFoward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				robotController.moveFowards();
+				robotController.moveForwards();
 				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para a frente.\n");
 			}
 		});
