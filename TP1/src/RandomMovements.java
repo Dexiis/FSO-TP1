@@ -24,12 +24,10 @@ public class RandomMovements extends Thread {
 	public RandomMovements() {
 	}
 
-	@Override
 	public void run() {
 		while (true) {
 			switch (STATE) {
 			case IDLE:
-				System.out.println(STATE);
 				if (turnedOn) {
 					this.turnedOn = false;
 					actionsLeft = this.actionNumber;
@@ -38,16 +36,15 @@ public class RandomMovements extends Thread {
 				break;
 
 			case WAIT:
-				System.out.println(STATE);
-				if (System.currentTimeMillis() - timeStamp >= timeToWait)
-					STATE = EXECUTE;
 				if (interrupt || actionsLeft <= 0) {
 					this.interrupt = false;
 					STATE = IDLE;
 				}
+				if (System.currentTimeMillis() - timeStamp >= timeToWait)
+					STATE = EXECUTE;
 				break;
 
-			case EXECUTE:	
+			case EXECUTE:
 				int direction = random.nextInt(3);
 				robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20, random.nextInt(40) + 10);
 

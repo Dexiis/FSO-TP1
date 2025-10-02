@@ -3,10 +3,10 @@ public class RobotController {
 
 	private Data data = new Data(0, 0, 0, 0, null);
 	private static RobotLegoEV3 robot = new RobotLegoEV3();
-	
+
 	private static RandomMovements randomMovements = new RandomMovements();
 	private Thread randomMovementsThread = new Thread(randomMovements);
-	
+
 	public RobotController() {
 		randomMovementsThread.start();
 	}
@@ -18,7 +18,7 @@ public class RobotController {
 		data.setName(name);
 		data.setActionNumber(Integer.parseInt(actionNumber));
 	}
-	
+
 	public void updateData(int radius, int angle, int distance) {
 		data.setRadius(radius);
 		data.setAngle(angle);
@@ -49,11 +49,11 @@ public class RobotController {
 		robot.CurvarEsquerda(data.getRadius(), data.getAngle());
 	}
 
-	public void randomMovements() {	
+	public void randomMovements() {
 		randomMovements.setActionNumber(data.getActionNumber());
 		randomMovements.setToExecute();
 	}
-	
+
 	public void stopRandomMovements() {
 		randomMovements.setToInterrupt();
 	}
@@ -61,7 +61,7 @@ public class RobotController {
 	public void stopMovement() {
 		robot.Parar(true);
 	}
-	
+
 	public int getDelayStraightLine() {
 		return data.getDelayStraightLine();
 	}
@@ -69,5 +69,5 @@ public class RobotController {
 	public int getDelayCurve() {
 		return data.getDelayCurve();
 	}
-	
+
 }

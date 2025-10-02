@@ -167,10 +167,8 @@ public class GUI {
 				updateData();
 				if (rdbtnRandomMovements.isSelected()) {
 					robotController.randomMovements();
-					System.out.println("Bao");
 				} else {
 					robotController.stopRandomMovements();
-					System.out.println("Cabum");
 				}
 			}
 		});
@@ -198,6 +196,7 @@ public class GUI {
 		btnFoward.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFoward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				robotController.stopRandomMovements();
 				robotController.moveForwards();
 				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para a frente.\n");
 			}
@@ -209,6 +208,7 @@ public class GUI {
 		btnStop.setBackground(new Color(217, 0, 5));
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				robotController.stopRandomMovements();
 				robotController.stopMovement();
 				textArea.append("O Rôbo parou.\n");
 			}
@@ -237,6 +237,7 @@ public class GUI {
 		frmAd.getContentPane().add(btnRight);
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				robotController.stopRandomMovements();
 				robotController.moveRightCurve();
 				textArea.append("O Rôbo curvou para a direita num angulo de " + textAngle.getText() + " com um raio de "
 						+ textRadius.getText() + ".\n");
@@ -247,6 +248,7 @@ public class GUI {
 		btnBackwards.setBackground(new Color(192, 192, 192));
 		btnBackwards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				robotController.stopRandomMovements();
 				robotController.moveBackwards();
 				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para trás.\n");
 			}
