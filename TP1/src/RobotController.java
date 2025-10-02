@@ -2,11 +2,13 @@
 public class RobotController {
 
 	private Data data = new Data(0, 0, 0, 0, null);
-	private RobotLegoEV3 robot = new RobotLegoEV3();
+	private static RobotLegoEV3 robot = new RobotLegoEV3();
 	
-	private Thread randomMovementsThread;
-
+	private static RandomMovements randomMovements = new RandomMovements();
+	private Thread randomMovementsThread = new Thread(randomMovements);
+	
 	public RobotController() {
+		randomMovementsThread.start();
 	}
 
 	public void updateData(String radius, String angle, String distance, String name, String actionNumber) {
@@ -47,14 +49,13 @@ public class RobotController {
 		robot.CurvarEsquerda(data.getRadius(), data.getAngle());
 	}
 
-	public void randomMovements() {
-		randomMovementsThread = new Thread(new RandomMovements(data.getActionNumber()));
-		randomMovementsThread.start();
+	public void randomMovements() {	
+		randomMovements.setActionNumber(data.getActionNumber());
+		randomMovements.setToExecute();
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void stopRandomMovements() {
-		if (randomMovementsThread != null) randomMovementsThread.stop();
+		randomMovements.setToInterrupt();
 	}
 
 	public void stopMovement() {
