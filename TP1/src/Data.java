@@ -59,7 +59,7 @@ public class Data {
 	}
 
 	public int getDelayCurve() {
-		return (int) (((Math.toRadians(90) * angle) / 0.02) + 100);
+		return (int) (((Math.toRadians(this.angle) * this.radius) / 0.02) + 100);
 	}
 
 }

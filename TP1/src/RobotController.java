@@ -1,15 +1,17 @@
 
 public class RobotController {
 
-	private Data data = new Data(0, 0, 0, 0, null);
-	private static RobotLegoEV3 robot = new RobotLegoEV3();
+	private final Data data = new Data(0, 0, 0, 0, null);
+	private final RobotLegoEV3 robot = new RobotLegoEV3();
 
-	private static RandomMovements randomMovements = new RandomMovements();
-	private Thread randomMovementsThread = new Thread(randomMovements);
+	private final RandomMovements randomMovements = new RandomMovements(this);
+	private final Thread randomMovementsThread;
 
 	public RobotController() {
-		randomMovementsThread.start();
+		this.randomMovementsThread = new Thread(randomMovements);
+		this.randomMovementsThread.start();
 	}
+	
 
 	public void updateData(String radius, String angle, String distance, String name, String actionNumber) {
 		data.setRadius(Integer.parseInt(radius));
@@ -30,26 +32,31 @@ public class RobotController {
 	}
 
 	public void turnOffRobot() {
-		robot.CloseEV3();
+		
 	}
 
 	public void moveForwards() {
 		robot.Reta(data.getDistance());
+		robot.Parar(false);
 	}
 
 	public void moveBackwards() {
 		robot.Reta(-data.getDistance());
+		robot.Parar(false);
 	}
 
 	public void moveRightCurve() {
 		robot.CurvarDireita(data.getRadius(), data.getAngle());
+		robot.Parar(false);
 	}
 
 	public void moveLeftCurve() {
 		robot.CurvarEsquerda(data.getRadius(), data.getAngle());
+		robot.Parar(false);
 	}
 
 	public void randomMovements() {
+		System.out.println("Action number" + data.getActionNumber());
 		randomMovements.setActionNumber(data.getActionNumber());
 		randomMovements.setToExecute();
 	}

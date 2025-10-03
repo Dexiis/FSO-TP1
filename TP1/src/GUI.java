@@ -92,11 +92,7 @@ public class GUI {
 		frmAd.getContentPane().add(lblLogger);
 
 		textRadius = new JTextField();
-		textRadius.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateData();
-			}
-		});
+		
 		textRadius.setHorizontalAlignment(SwingConstants.CENTER);
 		textRadius.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textRadius.setText("20");
@@ -105,11 +101,7 @@ public class GUI {
 		textRadius.setColumns(10);
 
 		textAngle = new JTextField();
-		textAngle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateData();
-			}
-		});
+		
 		textAngle.setHorizontalAlignment(SwingConstants.CENTER);
 		textAngle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textAngle.setText("90");
@@ -118,11 +110,7 @@ public class GUI {
 		textAngle.setColumns(10);
 
 		textDistance = new JTextField();
-		textDistance.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateData();
-			}
-		});
+		
 		textDistance.setText("33");
 		textDistance.setHorizontalAlignment(SwingConstants.CENTER);
 		textDistance.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -131,12 +119,8 @@ public class GUI {
 		frmAd.getContentPane().add(textDistance);
 
 		textRobotName = new JTextField();
-		textRobotName.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateData();
-			}
-		});
-		textRobotName.setText("Ze");
+		
+		textRobotName.setText("EV4");
 		textRobotName.setHorizontalAlignment(SwingConstants.CENTER);
 		textRobotName.setFont(new Font("Tahoma	", Font.PLAIN, 18));
 		textRobotName.setColumns(10);
@@ -152,11 +136,7 @@ public class GUI {
 
 		spinnerNumber = new JSpinner();
 		spinnerNumber.setModel(new SpinnerNumberModel(Integer.valueOf(5), null, null, Integer.valueOf(1)));
-		spinnerNumber.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				updateData();
-			}
-		});
+		
 		spinnerNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerNumber.setBounds(358, 221, 42, 29);
 		frmAd.getContentPane().add(spinnerNumber);
@@ -196,6 +176,7 @@ public class GUI {
 		btnFoward.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFoward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveForwards();
 				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para a frente.\n");
@@ -208,6 +189,7 @@ public class GUI {
 		btnStop.setBackground(new Color(217, 0, 5));
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateData();
 				robotController.stopRandomMovements();
 				robotController.stopMovement();
 				textArea.append("O Rôbo parou.\n");
@@ -221,6 +203,8 @@ public class GUI {
 		btnLeft.setBackground(new Color(255, 255, 0));
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateData();
+				robotController.stopRandomMovements();
 				robotController.moveLeftCurve();
 				textArea.append("O Rôbo curvou para a esquerda num angulo de " + textAngle.getText()
 						+ " com um raio de " + textRadius.getText() + ".\n");
@@ -237,6 +221,7 @@ public class GUI {
 		frmAd.getContentPane().add(btnRight);
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveRightCurve();
 				textArea.append("O Rôbo curvou para a direita num angulo de " + textAngle.getText() + " com um raio de "
@@ -248,6 +233,7 @@ public class GUI {
 		btnBackwards.setBackground(new Color(192, 192, 192));
 		btnBackwards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveBackwards();
 				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para trás.\n");
