@@ -92,7 +92,7 @@ public class GUI {
 		frmAd.getContentPane().add(lblLogger);
 
 		textRadius = new JTextField();
-		
+
 		textRadius.setHorizontalAlignment(SwingConstants.CENTER);
 		textRadius.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textRadius.setText("20");
@@ -101,7 +101,7 @@ public class GUI {
 		textRadius.setColumns(10);
 
 		textAngle = new JTextField();
-		
+
 		textAngle.setHorizontalAlignment(SwingConstants.CENTER);
 		textAngle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textAngle.setText("90");
@@ -110,7 +110,7 @@ public class GUI {
 		textAngle.setColumns(10);
 
 		textDistance = new JTextField();
-		
+
 		textDistance.setText("33");
 		textDistance.setHorizontalAlignment(SwingConstants.CENTER);
 		textDistance.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -119,7 +119,7 @@ public class GUI {
 		frmAd.getContentPane().add(textDistance);
 
 		textRobotName = new JTextField();
-		
+
 		textRobotName.setText("EV4");
 		textRobotName.setHorizontalAlignment(SwingConstants.CENTER);
 		textRobotName.setFont(new Font("Tahoma	", Font.PLAIN, 18));
@@ -136,7 +136,7 @@ public class GUI {
 
 		spinnerNumber = new JSpinner();
 		spinnerNumber.setModel(new SpinnerNumberModel(Integer.valueOf(5), null, null, Integer.valueOf(1)));
-		
+
 		spinnerNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerNumber.setBounds(358, 221, 42, 29);
 		frmAd.getContentPane().add(spinnerNumber);

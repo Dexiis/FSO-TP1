@@ -11,7 +11,6 @@ public class RobotController {
 		this.randomMovementsThread = new Thread(randomMovements);
 		this.randomMovementsThread.start();
 	}
-	
 
 	public void updateData(String radius, String angle, String distance, String name, String actionNumber) {
 		data.setRadius(Integer.parseInt(radius));
@@ -32,7 +31,7 @@ public class RobotController {
 	}
 
 	public void turnOffRobot() {
-		
+
 	}
 
 	public void moveForwards() {
@@ -56,7 +55,7 @@ public class RobotController {
 	}
 
 	public void randomMovements() {
-		System.out.println("Action number" + data.getActionNumber());
+		// System.out.println("Action number" + data.getActionNumber());
 		randomMovements.setActionNumber(data.getActionNumber());
 		randomMovements.setToExecute();
 	}

@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class RandomMovements extends Thread {
-	
+
 	private static final int FORWARD = 0;
 	private static final int BACKWARDS = 1;
 	private static final int RIGHT = 2;
@@ -27,28 +27,30 @@ public class RandomMovements extends Thread {
 	}
 
 	public void run() {
-		System.out.println("Estado 0");
+		// System.out.println("Estado 0");
 		while (true) {
-			//System.out.println(STATE);		
+			// System.out.println(STATE);
 			switch (STATE) {
 			case IDLE:
 				if (turnedOn) {
 					this.turnedOn = false;
 					actionsLeft = this.actionNumber;
 					STATE = EXECUTE;
-					System.out.println("Estado 2");			}
+					System.out.println("Estado 2");
+				}
 				break;
 
 			case WAIT:
-				//System.out.println(STATE);
+				// System.out.println(STATE);
 				if (interrupt || actionsLeft <= 0) {
 					this.interrupt = false;
 					STATE = IDLE;
-					System.out.println("Estado 0");		
+					// System.out.println("Estado 0");
 				}
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
 					STATE = EXECUTE;
-					System.out.println("Estado 2");	}	
+					// System.out.println("Estado 2");
+				}
 				break;
 
 			case EXECUTE:
@@ -75,8 +77,8 @@ public class RandomMovements extends Thread {
 				actionsLeft--;
 				STATE = WAIT;
 				timeStamp = System.currentTimeMillis();
-				System.out.println(timeToWait);
-				System.out.println("Estado 1");		
+				// System.out.println(timeToWait);
+				// System.out.println("Estado 1");
 				break;
 			}
 		}
