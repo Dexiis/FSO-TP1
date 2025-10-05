@@ -5,8 +5,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -18,7 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SpinnerNumberModel;
 
-public class GUI {
+public class GUI implements ILogger {
 
 	private JFrame frmAd;
 	private JTextField textRadius;
@@ -28,9 +26,10 @@ public class GUI {
 	private JCheckBox chckbxOnOff;
 	private JSpinner spinnerNumber;
 	private JRadioButton rdbtnRandomMovements;
+	private JTextArea textArea;
 
 	private RobotController robotController = new RobotController();
-
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,15 +43,23 @@ public class GUI {
 		});
 	}
 
+	@Override
+	public void logMessage(String message) {
+		textArea.append(message);
+	}
+	
 	public GUI() {
 		initialize();
 		updateData();
+		robotController.setLogger(this);
 	}
 
 	public void updateData() {
 		robotController.updateData(textRadius.getText(), textAngle.getText(), textDistance.getText(),
 				textRobotName.getText(), spinnerNumber.getValue().toString());
 	}
+	
+	
 
 	private void initialize() {
 		frmAd = new JFrame();
@@ -131,7 +138,7 @@ public class GUI {
 		scrollPane.setBounds(0, 325, 668, 181);
 		frmAd.getContentPane().add(scrollPane);
 
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 
 		spinnerNumber = new JSpinner();
@@ -179,7 +186,6 @@ public class GUI {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveForwards();
-				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para a frente.\n");
 			}
 		});
 		btnFoward.setBounds(246, 106, 156, 36);
@@ -192,7 +198,6 @@ public class GUI {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.stopMovement();
-				textArea.append("O Rôbo parou.\n");
 			}
 		});
 		btnStop.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -206,8 +211,6 @@ public class GUI {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveLeftCurve();
-				textArea.append("O Rôbo curvou para a esquerda num angulo de " + textAngle.getText()
-						+ " com um raio de " + textRadius.getText() + ".\n");
 			}
 		});
 		btnLeft.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -224,8 +227,6 @@ public class GUI {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveRightCurve();
-				textArea.append("O Rôbo curvou para a direita num angulo de " + textAngle.getText() + " com um raio de "
-						+ textRadius.getText() + ".\n");
 			}
 		});
 
@@ -236,11 +237,11 @@ public class GUI {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveBackwards();
-				textArea.append("O Rôbo andou " + textDistance.getText() + " centimetros para trás.\n");
 			}
 		});
 		btnBackwards.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnBackwards.setBounds(246, 174, 156, 36);
 		frmAd.getContentPane().add(btnBackwards);
 	}
+
 }
