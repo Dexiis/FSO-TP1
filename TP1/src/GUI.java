@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -45,7 +46,7 @@ public class GUI implements ILogger {
 
 	@Override
 	public void logMessage(String message) {
-		textArea.append(message);
+		SwingUtilities.invokeLater(() -> textArea.append(message));
 	}
 	
 	public GUI() {
