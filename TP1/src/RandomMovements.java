@@ -6,7 +6,7 @@ public class RandomMovements extends Thread {
 	private static final int BACKWARDS = 1;
 	private static final int RIGHT = 2;
 	private static final int LEFT = 3;
-	private volatile int STATE = 0;
+	private int STATE = 0;
 	private static final int IDLE = 0;
 	private static final int WAIT = 1;
 	private static final int EXECUTE = 2;
@@ -27,29 +27,25 @@ public class RandomMovements extends Thread {
 	}
 
 	public void run() {
-		// System.out.println("Estado 0");
+		this.interrupt = false;
 		while (true) {
-			// System.out.println(STATE);
 			switch (STATE) {
 			case IDLE:
-				if (turnedOn) {
+				if (this.turnedOn) {
 					this.turnedOn = false;
+					this.interrupt = false;
 					actionsLeft = this.actionNumber;
 					STATE = EXECUTE;
-					System.out.println("Estado 2");
 				}
 				break;
 
 			case WAIT:
-				// System.out.println(STATE);
-				if (interrupt || actionsLeft <= 0) {
+				if (this.interrupt || actionsLeft <= 0) {
 					this.interrupt = false;
 					STATE = IDLE;
-					// System.out.println("Estado 0");
 				}
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
 					STATE = EXECUTE;
-					// System.out.println("Estado 2");
 				}
 				break;
 
@@ -77,22 +73,20 @@ public class RandomMovements extends Thread {
 				actionsLeft--;
 				STATE = WAIT;
 				timeStamp = System.currentTimeMillis();
-				// System.out.println(timeToWait);
-				// System.out.println("Estado 1");
 				break;
 			}
 		}
 	}
 
-	public void setToExecute() {
+	public synchronized void setToExecute() {
 		this.turnedOn = true;
 	}
 
-	public void setToInterrupt() {
+	public synchronized void setToInterrupt() {
 		this.interrupt = true;
 	}
 
-	public void setActionNumber(int actionNumber) {
+	public synchronized void setActionNumber(int actionNumber) {
 		this.actionNumber = actionNumber;
 	}
 
