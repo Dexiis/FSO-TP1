@@ -3,9 +3,8 @@ import java.util.Random;
 public class RandomMovements extends Thread {
 
 	private static final int FORWARD = 0;
-	private static final int BACKWARDS = 1;
-	private static final int RIGHT = 2;
-	private static final int LEFT = 3;
+	private static final int RIGHT = 1;
+	private static final int LEFT = 2;
 	private int STATE = 0;
 	private static final int IDLE = 0;
 	private static final int WAIT = 1;
@@ -50,15 +49,11 @@ public class RandomMovements extends Thread {
 				break;
 
 			case EXECUTE:
-				int direction = random.nextInt(3);
+				int direction = random.nextInt(2);
 				robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20, random.nextInt(40) + 10);
 
 				if (direction == FORWARD) {
 					robotController.moveForwards();
-					timeToWait = robotController.getDelayStraightLine();
-				}
-				if (direction == BACKWARDS) {
-					robotController.moveBackwards();
 					timeToWait = robotController.getDelayStraightLine();
 				}
 				if (direction == RIGHT) {
@@ -78,6 +73,8 @@ public class RandomMovements extends Thread {
 		}
 	}
 
+	
+		
 	public synchronized void setToExecute() {
 		this.turnedOn = true;
 	}

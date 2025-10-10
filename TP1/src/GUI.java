@@ -187,6 +187,7 @@ public class GUI implements ILogger {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveForwards();
+				robotController.stopMovementSync();
 			}
 		});
 		btnFoward.setBounds(246, 106, 156, 36);
@@ -212,6 +213,7 @@ public class GUI implements ILogger {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveLeftCurve();
+				robotController.stopMovementSync();
 			}
 		});
 		btnLeft.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -228,6 +230,7 @@ public class GUI implements ILogger {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveRightCurve();
+				robotController.stopMovementSync();
 			}
 		});
 
@@ -238,6 +241,7 @@ public class GUI implements ILogger {
 				updateData();
 				robotController.stopRandomMovements();
 				robotController.moveBackwards();
+				robotController.stopMovementSync();
 			}
 		});
 		btnBackwards.setFont(new Font("Tahoma", Font.PLAIN, 20));
