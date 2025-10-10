@@ -68,13 +68,13 @@ public class RobotController {
 				+ data.getRadius() + " centímetros.\n");
 	}
 
-	public void randomMovements() {
+	public void startRandomMovements() {
 		randomMovements.setActionNumber(data.getActionNumber());
-		randomMovements.setToExecute();
+		randomMovements.setToExecute(true);
 	}
 
 	public void stopRandomMovements() {
-		randomMovements.setToInterrupt();
+		randomMovements.setToExecute(false);
 	}
 
 	public void stopMovement() {

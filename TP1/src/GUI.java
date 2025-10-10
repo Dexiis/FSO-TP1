@@ -154,7 +154,7 @@ public class GUI implements ILogger {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
 				if (rdbtnRandomMovements.isSelected()) {
-					robotController.randomMovements();
+					robotController.startRandomMovements();
 				} else {
 					robotController.stopRandomMovements();
 				}
