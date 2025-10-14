@@ -1,66 +1,54 @@
-import java.util.concurrent.Semaphore;
-
-public class Buffer { // ISTO É COM SEMAPHOROS COM SEMAFROS
+public class Buffer {
 
 	private static final int CAPACITY = 8;
 
-//
-	private int numEspP = 0;
-	private int numEspGr = 0;
-	private final Semaphore mutex = new Semaphore(1);
-	private final Semaphore empty = new Semaphore(CAPACITY);
-	private final Semaphore full = new Semaphore(0);
+	private final Object[] buffer; 
+	private int count = 0;        
+	private int in = 0;           
+	private int out = 0;          
 
 	public Buffer() {
+		this.buffer = new Object[CAPACITY]; 
 	}
 
-	public void put(Object O) throws InterruptedException {
-		mutex.acquire();
+	public synchronized void put(Object O) throws InterruptedException {
 		while (isFull()) {
-			numEspP++;
-			mutex.release();
-			full.acquire();
-			mutex.acquire();
-			numEspP--;
+			this.wait();
 		}
 
-		input(O); // Enviar para o robô???
-		if (numEspGr > 0)
-			empty.release();
-		mutex.release();
+		input(O); 
+		notifyAll();
 	}
 
-	public Object get() throws InterruptedException {
-		mutex.acquire();
+	public synchronized Object get() throws InterruptedException {
 		while (isEmpty()) {
-			numEspGr++;
-			mutex.release();
-			empty.acquire();
-			mutex.acquire();
-			numEspGr--;
+			this.wait();
 		}
 
-		Object O = remove(); // não sei
-		if (numEspP > 0)
-			full.release();
-		mutex.release();
+		Object O = remove(); 
+		notifyAll();
 
-		return 0;
-
+		return O; 
 	}
-
+    
 	private boolean isFull() {
-		return // (CAPACITY == elementos?????)    Do quadro --> C = e 
+		return (count == CAPACITY);
+	}
 
 	private boolean isEmpty() {
-		return (CAPACITY == 0); // WUT, isto não faz sentido??? Do quadro --> c = 0
+		return (count == 0); 
 	}
 
 	private void input(Object O) {
-		// POR FAZER
+		buffer[in] = O;
+		in = (in + 1) % CAPACITY;
+		count++;
 	}
 
 	private Object remove() {
-		return null; // POR FAZER
+		Object O = buffer[out]; 
+		out = (out + 1) % CAPACITY;
+		count--;
+		return O; 
 	}
 }
