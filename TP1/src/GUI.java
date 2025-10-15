@@ -30,7 +30,7 @@ public class GUI implements ILogger {
 	private JTextArea textArea;
 
 	private RobotController robotController = new RobotController();
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,7 +48,7 @@ public class GUI implements ILogger {
 	public void logMessage(String message) {
 		SwingUtilities.invokeLater(() -> textArea.append(message));
 	}
-	
+
 	public GUI() {
 		initialize();
 		updateData();
@@ -59,8 +59,6 @@ public class GUI implements ILogger {
 		robotController.updateData(textRadius.getText(), textAngle.getText(), textDistance.getText(),
 				textRobotName.getText(), spinnerNumber.getValue().toString());
 	}
-	
-	
 
 	private void initialize() {
 		frmAd = new JFrame();
