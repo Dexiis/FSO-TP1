@@ -9,6 +9,7 @@ public class RandomMovements extends Thread {
 	private static final int IDLE = 0;
 	private static final int WAIT = 1;
 	private static final int EXECUTE = 2;
+	private int lastDirection = -1;
 
 	private volatile boolean turnedOn = false;
 
@@ -34,11 +35,17 @@ public class RandomMovements extends Thread {
 
 			case EXECUTE:
 				timeToWait = 0;
-				
+
 				for (int i = 0; i < this.actionNumber; i++) {
-					int direction = random.nextInt(2);
-					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20, random.nextInt(40) + 10);
-					
+					int direction = random.nextInt(3);
+					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
+							random.nextInt(40) + 10);
+
+					if (lastDirection == direction) {
+						i--;
+						continue;
+					}
+
 					if (direction == FORWARD) {
 						robotController.moveForwards();
 						timeToWait += robotController.getDelayStraightLine();
@@ -51,6 +58,9 @@ public class RandomMovements extends Thread {
 						robotController.moveLeftCurve();
 						timeToWait += robotController.getDelayCurve();
 					}
+
+					lastDirection = direction;
+					System.out.println("oi");
 				}
 
 				STATE = WAIT;
@@ -59,8 +69,10 @@ public class RandomMovements extends Thread {
 
 			case WAIT:
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
-					if (this.turnedOn) STATE = EXECUTE;
-					else STATE = IDLE;
+					if (this.turnedOn)
+						STATE = EXECUTE;
+					else
+						STATE = IDLE;
 				}
 				break;
 
