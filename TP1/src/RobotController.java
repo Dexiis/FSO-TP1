@@ -75,11 +75,11 @@ public class RobotController {
 
 	public void startRandomMovements() {
 		randomMovements.setActionNumber(data.getActionNumber());
-		randomMovements.setToExecute(true);
+		randomMovements.setWorking(true);
 	}
 
 	public void stopRandomMovements() {
-		randomMovements.setToExecute(false);
+		randomMovements.setWorking(false);
 	}
 
 	public void stopMovement() {

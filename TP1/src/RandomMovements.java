@@ -11,7 +11,7 @@ public class RandomMovements extends Thread {
 	private static final int EXECUTE = 2;
 	private int lastDirection = -1;
 
-	private volatile boolean turnedOn = false;
+	private volatile boolean working = false;
 
 	private volatile int actionNumber = 0;
 	private long timeToWait = 0;
@@ -28,7 +28,7 @@ public class RandomMovements extends Thread {
 		while (true) {
 			switch (STATE) {
 			case IDLE:
-				if (this.turnedOn) {
+				if (this.working) {
 					STATE = EXECUTE;
 				}
 				break;
@@ -68,7 +68,7 @@ public class RandomMovements extends Thread {
 
 			case WAIT:
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
-					if (this.turnedOn) STATE = EXECUTE;
+					if (this.working) STATE = EXECUTE;
 					else STATE = IDLE;
 				}
 				break;
@@ -77,8 +77,8 @@ public class RandomMovements extends Thread {
 		}
 	}
 
-	public synchronized void setToExecute(boolean turnedOn) {
-		this.turnedOn = turnedOn;
+	public synchronized void setWorking(boolean working) {
+		this.working = working;
 	}
 
 	public synchronized void setActionNumber(int actionNumber) {
