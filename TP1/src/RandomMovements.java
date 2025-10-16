@@ -60,7 +60,6 @@ public class RandomMovements extends Thread {
 					}
 
 					lastDirection = direction;
-					System.out.println("oi");
 				}
 
 				STATE = WAIT;
@@ -69,10 +68,8 @@ public class RandomMovements extends Thread {
 
 			case WAIT:
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
-					if (this.turnedOn)
-						STATE = EXECUTE;
-					else
-						STATE = IDLE;
+					if (this.turnedOn) STATE = EXECUTE;
+					else STATE = IDLE;
 				}
 				break;
 
