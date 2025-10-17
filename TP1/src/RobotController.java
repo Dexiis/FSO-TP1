@@ -6,9 +6,11 @@ public class RobotController {
 
 	private final RandomMovements randomMovements = new RandomMovements(this);
 	private final Thread randomMovementsThread;
+	private Buffer buffer = new Buffer();
+	private Movement movement;
 
 	private ILogger logger;
-	private Buffer buffer = new Buffer();
+	
 
 	public RobotController() {
 		this.randomMovementsThread = new Thread(randomMovements);
@@ -67,6 +69,10 @@ public class RobotController {
 		buffer.input(new Movement(robot, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
 		log("O robô curvou à esquerda com um ângulo de " + data.getAngle() + " graus e com um raio de "
 				+ data.getRadius() + " centímetros.\n");
+	}
+	
+	public void getBuffer() {
+		buffer.get().doMovement();
 	}
 
 	public void startRandomMovements() {

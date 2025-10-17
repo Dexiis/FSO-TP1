@@ -2,53 +2,61 @@ public class Buffer {
 
 	private static final int CAPACITY = 8;
 
-	private final Object[] buffer; 
-	private int count = 0;        
-	private int in = 0;           
-	private int out = 0;          
+	private final Movement[] buffer;
+	private int count = 0;
+	private int in = 0;
+	private int out = 0;
 
 	public Buffer() {
-		this.buffer = new Object[CAPACITY]; 
+		this.buffer = new Movement[CAPACITY];
 	}
 
-	public synchronized void put(Object O) throws InterruptedException {
+	public synchronized void put(Movement O) {
 		while (isFull()) {
-			this.wait();
+			try {
+				this.wait();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		input(O); 
+		input(O);
 		notifyAll();
 	}
 
-	public synchronized Object get() throws InterruptedException {
+	public synchronized Movement get() {
 		while (isEmpty()) {
-			this.wait();
+			try {
+				this.wait();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		Object O = remove(); 
+		Movement O = remove();
 		notifyAll();
 
-		return O; 
+		return O;
 	}
-    
+
 	private boolean isFull() {
 		return (count == CAPACITY);
 	}
 
 	private boolean isEmpty() {
-		return (count == 0); 
+		return (count == 0);
 	}
 
-	public void input(Object O) {
+	public void input(Movement O) {
 		buffer[in] = O;
 		in = (in + 1) % CAPACITY;
 		count++;
 	}
 
-	private Object remove() {
-		Object O = buffer[out]; 
+	private Movement remove() {
+		Movement O = buffer[out];
 		out = (out + 1) % CAPACITY;
 		count--;
-		return O; 
+		return O;
 	}
 }

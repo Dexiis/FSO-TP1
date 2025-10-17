@@ -26,15 +26,18 @@ public class RandomMovements extends Thread {
 		while (true) {
 			switch (STATE) {
 			case IDLE:
+				System.out.println("boas");
 				if (this.working)
 					STATE = State.EXECUTE;
 				break;
 
 			case EXECUTE:
 				timeToWait = 0;
-
+				
+				System.out.println("1");
 				for (int i = 0; i < this.actionNumber; i++) {
 					MovementEnum[] movement = MovementEnum.values();
+					System.out.println("2");
 					int direction = random.nextInt(movement.length);
 
 					if (lastDirection == movement[direction]) {
@@ -55,7 +58,7 @@ public class RandomMovements extends Thread {
 						robotController.moveLeftCurve();
 						timeToWait += robotController.getDelayCurve();
 						break;
-					case BACKWARDS:
+					default:
 						i--;
 						break;
 					}
@@ -65,7 +68,7 @@ public class RandomMovements extends Thread {
 
 					lastDirection = movement[direction];
 				}
-
+				robotController.getBuffer();
 				STATE = State.WAIT;
 				timeStamp = System.currentTimeMillis();
 				break;
