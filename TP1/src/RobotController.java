@@ -8,7 +8,7 @@ public class RobotController {
 	private final Thread randomMovementsThread;
 
 	private ILogger logger;
-	private Buffer buffer;
+	private Buffer buffer = new Buffer();
 
 	public RobotController() {
 		this.randomMovementsThread = new Thread(randomMovements);
@@ -47,28 +47,24 @@ public class RobotController {
 		// robot.CloseEV3();
 	}
 
-	public void moveForwards() {
-		// buffer.input(robot.Reta(data.getDistance()));
-		robot.Reta(data.getDistance());
+	public void moveForward() {
+		buffer.input(new Movement(robot, MovementEnum.FORWARD, data.getDistance()));
 		log("O robô andou para a frente " + data.getDistance() + " centímetros.\n");
 	}
 
 	public void moveBackwards() {
-		// buffer.input(robot.Reta(-data.getDistance()));
-		robot.Reta(-data.getDistance());
+		buffer.input(new Movement(robot, MovementEnum.BACKWARDS, -data.getDistance()));
 		log("O robô andou para trás " + data.getDistance() + " centímetros.\n");
 	}
 
 	public void moveRightCurve() {
-		// buffer.input(robot.CurvarDireita(data.getRadius(), data.getAngle()));
-		robot.CurvarDireita(data.getRadius(), data.getAngle());
+		buffer.input(new Movement(robot, MovementEnum.RIGHT, data.getRadius(), data.getAngle()));
 		log("O robô curvou à direita com um ângulo de " + data.getAngle() + " graus e com um raio de "
 				+ data.getRadius() + " centímetros.\n");
 	}
 
 	public void moveLeftCurve() {
-		// buffer.input(robot.CurvarEsquerda(data.getRadius(), data.getAngle()));
-		robot.CurvarEsquerda(data.getRadius(), data.getAngle());
+		buffer.input(new Movement(robot, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
 		log("O robô curvou à esquerda com um ângulo de " + data.getAngle() + " graus e com um raio de "
 				+ data.getRadius() + " centímetros.\n");
 	}

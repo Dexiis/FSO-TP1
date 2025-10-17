@@ -39,7 +39,7 @@ public class Buffer {
 		return (count == 0); 
 	}
 
-	private void input(Object O) {
+	public void input(Object O) {
 		buffer[in] = O;
 		in = (in + 1) % CAPACITY;
 		count++;

@@ -184,7 +184,7 @@ public class GUI implements ILogger {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
 				robotController.stopRandomMovements();
-				robotController.moveForwards();
+				robotController.moveForward();
 				robotController.stopMovementSync();
 			}
 		});

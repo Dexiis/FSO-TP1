@@ -2,14 +2,12 @@ import java.util.Random;
 
 public class RandomMovements extends Thread {
 
-	private static final int FORWARD = 0;
-	private static final int RIGHT = 1;
-	private static final int LEFT = 2;
-	private int STATE = 0;
-	private static final int IDLE = 0;
-	private static final int WAIT = 1;
-	private static final int EXECUTE = 2;
-	private int lastDirection = -1;
+	private enum State {
+		IDLE, WAIT, EXECUTE
+	}
+
+	private State STATE = State.IDLE;
+	private MovementEnum lastDirection = null;
 
 	private volatile boolean working = false;
 
@@ -28,48 +26,56 @@ public class RandomMovements extends Thread {
 		while (true) {
 			switch (STATE) {
 			case IDLE:
-				if (this.working) {
-					STATE = EXECUTE;
-				}
+				if (this.working)
+					STATE = State.EXECUTE;
 				break;
 
 			case EXECUTE:
 				timeToWait = 0;
 
 				for (int i = 0; i < this.actionNumber; i++) {
-					int direction = random.nextInt(3);
-					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
-							random.nextInt(40) + 10);
+					MovementEnum[] movement = MovementEnum.values();
+					int direction = random.nextInt(movement.length);
 
-					if (lastDirection == direction) {
+					if (lastDirection == movement[direction]) {
 						i--;
 						continue;
 					}
 
-					if (direction == FORWARD) {
-						robotController.moveForwards();
+					switch (movement[direction]) {
+					case FORWARD:
+						robotController.moveForward();
 						timeToWait += robotController.getDelayStraightLine();
-					}
-					if (direction == RIGHT) {
+						break;
+					case RIGHT:
 						robotController.moveRightCurve();
 						timeToWait += robotController.getDelayCurve();
-					}
-					if (direction == LEFT) {
+						break;
+					case LEFT:
 						robotController.moveLeftCurve();
 						timeToWait += robotController.getDelayCurve();
+						break;
+					case BACKWARDS:
+						i--;
+						break;
 					}
 
-					lastDirection = direction;
+					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
+							random.nextInt(40) + 10);
+
+					lastDirection = movement[direction];
 				}
 
-				STATE = WAIT;
+				STATE = State.WAIT;
 				timeStamp = System.currentTimeMillis();
 				break;
 
 			case WAIT:
 				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
-					if (this.working) STATE = EXECUTE;
-					else STATE = IDLE;
+					if (this.working)
+						STATE = State.EXECUTE;
+					else
+						STATE = State.IDLE;
 				}
 				break;
 
