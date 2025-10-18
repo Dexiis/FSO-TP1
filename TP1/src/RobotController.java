@@ -44,7 +44,7 @@ public class RobotController extends Thread {
 				if (System.currentTimeMillis() - timeStamp >= waitingTime)
 					if (buffer.isEmpty()) {
 						bufferState = BufferState.IDLE;
-						stopMovement();
+						stopMovementSync();
 					} else
 						bufferState = BufferState.EXECUTE;
 				break;
@@ -116,6 +116,10 @@ public class RobotController extends Thread {
 
 	public void stopMovementSync() {
 		robot.Parar(false);
+	}
+
+	public void clearBuffer() {
+		buffer.clearBuffer();
 	}
 
 	public int getDelayStraightLine() {

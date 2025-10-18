@@ -186,9 +186,7 @@ public class GUI implements ILogger {
 		btnFoward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				robotController.stopRandomMovements();
 				robotController.moveForward();
-				robotController.stopMovementSync();
 			}
 		});
 		btnFoward.setBounds(246, 106, 156, 36);
@@ -199,8 +197,8 @@ public class GUI implements ILogger {
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				robotController.stopRandomMovements();
 				robotController.stopMovement();
+				robotController.clearBuffer();
 			}
 		});
 		btnStop.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -212,9 +210,7 @@ public class GUI implements ILogger {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				robotController.stopRandomMovements();
 				robotController.moveLeftCurve();
-				robotController.stopMovementSync();
 			}
 		});
 		btnLeft.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -229,9 +225,7 @@ public class GUI implements ILogger {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				robotController.stopRandomMovements();
 				robotController.moveRightCurve();
-				robotController.stopMovementSync();
 			}
 		});
 
@@ -240,9 +234,7 @@ public class GUI implements ILogger {
 		btnBackwards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateData();
-				robotController.stopRandomMovements();
 				robotController.moveBackwards();
-				robotController.stopMovementSync();
 			}
 		});
 		btnBackwards.setFont(new Font("Tahoma", Font.PLAIN, 20));

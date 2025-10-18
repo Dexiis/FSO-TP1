@@ -2,7 +2,7 @@ public class Buffer {
 
 	private static final int CAPACITY = 8;
 
-	private final Movement[] buffer;
+	private Movement[] buffer;
 	private int count = 0;
 	private int in = 0;
 	private int out = 0;
@@ -58,5 +58,9 @@ public class Buffer {
 		out = (out + 1) % CAPACITY;
 		count--;
 		return O;
+	}
+	
+	public void clearBuffer() {
+		this.buffer = new Movement[CAPACITY];
 	}
 }
