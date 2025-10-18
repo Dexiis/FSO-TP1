@@ -11,6 +11,7 @@ public class Movement {
 		this.logger = logger;
 		this.movement = movement;
 		this.distance = distance;
+		this.robot = robot;
 	}
 
 	public Movement(RobotLegoEV3 robot, ILogger logger, MovementEnum movement, int radius, int angle) {
