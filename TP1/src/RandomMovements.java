@@ -12,7 +12,7 @@ public class RandomMovements extends Thread {
 	private volatile boolean working = false;
 
 	private volatile int actionNumber = 0;
-	private long timeToWait = 0;
+	private long waitingTime = 0;
 	private long timeStamp = 0;
 
 	private RobotController robotController;
@@ -26,19 +26,19 @@ public class RandomMovements extends Thread {
 		while (true) {
 			switch (STATE) {
 			case IDLE:
-				System.out.println("boas");
 				if (this.working)
 					STATE = State.EXECUTE;
 				break;
 
 			case EXECUTE:
-				timeToWait = 0;
-				
-				System.out.println("1");
+				waitingTime = 0;
+
 				for (int i = 0; i < this.actionNumber; i++) {
 					MovementEnum[] movement = MovementEnum.values();
-					System.out.println("2");
 					int direction = random.nextInt(movement.length);
+					
+					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
+							random.nextInt(40) + 10);
 
 					if (lastDirection == movement[direction]) {
 						i--;
@@ -48,33 +48,30 @@ public class RandomMovements extends Thread {
 					switch (movement[direction]) {
 					case FORWARD:
 						robotController.moveForward();
-						timeToWait += robotController.getDelayStraightLine();
+						waitingTime += robotController.getDelayStraightLine();
 						break;
 					case RIGHT:
 						robotController.moveRightCurve();
-						timeToWait += robotController.getDelayCurve();
+						waitingTime += robotController.getDelayCurve();
 						break;
 					case LEFT:
 						robotController.moveLeftCurve();
-						timeToWait += robotController.getDelayCurve();
+						waitingTime += robotController.getDelayCurve();
 						break;
 					default:
 						i--;
 						break;
 					}
 
-					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
-							random.nextInt(40) + 10);
 
 					lastDirection = movement[direction];
 				}
-				robotController.getBuffer();
 				STATE = State.WAIT;
 				timeStamp = System.currentTimeMillis();
 				break;
 
 			case WAIT:
-				if (System.currentTimeMillis() - timeStamp >= timeToWait) {
+				if (System.currentTimeMillis() - timeStamp >= waitingTime) {
 					if (this.working)
 						STATE = State.EXECUTE;
 					else

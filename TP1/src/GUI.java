@@ -30,6 +30,7 @@ public class GUI implements ILogger {
 	private JTextArea textArea;
 
 	private RobotController robotController = new RobotController();
+	private final Thread robotControllerThread;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,6 +54,8 @@ public class GUI implements ILogger {
 		initialize();
 		updateData();
 		robotController.setLogger(this);
+		this.robotControllerThread = new Thread(robotController);
+		robotControllerThread.start();
 	}
 
 	public void updateData() {

@@ -43,7 +43,7 @@ public class Buffer {
 		return (count == CAPACITY);
 	}
 
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return (count == 0);
 	}
 

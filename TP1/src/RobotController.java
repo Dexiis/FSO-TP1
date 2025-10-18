@@ -1,5 +1,4 @@
-
-public class RobotController {
+public class RobotController extends Thread {
 
 	private final Data data = new Data(0, 0, 0, 0, null);
 	private final RobotLegoEV3 robot = new RobotLegoEV3();
@@ -8,13 +7,49 @@ public class RobotController {
 	private final Thread randomMovementsThread;
 	private Buffer buffer = new Buffer();
 	private Movement movement;
+	private BufferState bufferState = BufferState.IDLE;
+
+	private long waitingTime;
+	private long timeStamp;
 
 	private ILogger logger;
-	
+
+	private enum BufferState {
+		IDLE, WAIT, EXECUTE
+	}
 
 	public RobotController() {
 		this.randomMovementsThread = new Thread(randomMovements);
 		this.randomMovementsThread.start();
+	}
+
+	public void run() {
+		while (true) {
+			switch (bufferState) {
+			case IDLE:
+				System.out.println("IDLE");
+				if (!buffer.isEmpty())
+					bufferState = BufferState.EXECUTE;
+				break;
+			case EXECUTE:
+				System.out.println("EXECUTE");
+				movement = buffer.get();
+				movement.doMovement();
+				waitingTime = movement.getTempo();
+				timeStamp = System.currentTimeMillis();
+				bufferState = BufferState.WAIT;
+				break;
+			case WAIT:
+				System.out.println("WAIT");
+				if (System.currentTimeMillis() - timeStamp >= waitingTime)
+					if (buffer.isEmpty()) {
+						bufferState = BufferState.IDLE;
+						stopMovement();
+					} else
+						bufferState = BufferState.EXECUTE;
+				break;
+			}
+		}
 	}
 
 	public void setLogger(ILogger logger) {
@@ -50,29 +85,19 @@ public class RobotController {
 	}
 
 	public void moveForward() {
-		buffer.input(new Movement(robot, MovementEnum.FORWARD, data.getDistance()));
-		log("O robô andou para a frente " + data.getDistance() + " centímetros.\n");
+		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, data.getDistance()));
 	}
 
 	public void moveBackwards() {
-		buffer.input(new Movement(robot, MovementEnum.BACKWARDS, -data.getDistance()));
-		log("O robô andou para trás " + data.getDistance() + " centímetros.\n");
+		buffer.input(new Movement(robot, logger, MovementEnum.BACKWARDS, -data.getDistance()));
 	}
 
 	public void moveRightCurve() {
-		buffer.input(new Movement(robot, MovementEnum.RIGHT, data.getRadius(), data.getAngle()));
-		log("O robô curvou à direita com um ângulo de " + data.getAngle() + " graus e com um raio de "
-				+ data.getRadius() + " centímetros.\n");
+		buffer.input(new Movement(robot, logger, MovementEnum.RIGHT, data.getRadius(), data.getAngle()));
 	}
 
 	public void moveLeftCurve() {
-		buffer.input(new Movement(robot, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
-		log("O robô curvou à esquerda com um ângulo de " + data.getAngle() + " graus e com um raio de "
-				+ data.getRadius() + " centímetros.\n");
-	}
-	
-	public void getBuffer() {
-		buffer.get().doMovement();
+		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
 	}
 
 	public void startRandomMovements() {
@@ -88,7 +113,7 @@ public class RobotController {
 		robot.Parar(true);
 		log("O robô parou.\n");
 	}
-	
+
 	public void stopMovementSync() {
 		robot.Parar(false);
 	}

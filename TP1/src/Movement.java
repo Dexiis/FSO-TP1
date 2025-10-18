@@ -3,17 +3,18 @@ public class Movement {
 
 	private RobotLegoEV3 robot;
 
+	private ILogger logger;
 	private MovementEnum movement;
-	private int distance;
-	private int radius;
-	private int angle;
+	private int distance, radius, angle;
 
-	public Movement(RobotLegoEV3 robot, MovementEnum movement, int distance) {
+	public Movement(RobotLegoEV3 robot, ILogger logger, MovementEnum movement, int distance) {
+		this.logger = logger;
 		this.movement = movement;
 		this.distance = distance;
 	}
 
-	public Movement(RobotLegoEV3 robot, MovementEnum movement, int radius, int angle) {
+	public Movement(RobotLegoEV3 robot, ILogger logger, MovementEnum movement, int radius, int angle) {
+		this.logger = logger;
 		this.movement = movement;
 		this.radius = radius;
 		this.angle = angle;
@@ -56,16 +57,36 @@ public class Movement {
 		switch (this.movement) {
 		case FORWARD:
 			robot.Reta(this.distance);
+			log("O robô andou para a frente " + this.distance + " centímetros.\n");
 			break;
 		case BACKWARDS:
 			robot.Reta(-this.distance);
+			log("O robô andou para trás " + Math.abs(this.distance) + " centímetros.\n");
 			break;
 		case RIGHT:
 			robot.CurvarDireita(this.radius, this.angle);
+			log("O robô curvou à direita com um ângulo de " + this.angle + " graus e com um raio de " + this.radius
+					+ " centímetros.\n");
 			break;
 		case LEFT:
 			robot.CurvarEsquerda(this.radius, this.angle);
+			log("O robô curvou à esquerda com um ângulo de " + this.angle + " graus e com um raio de " + this.radius
+					+ " centímetros.\n");
 			break;
+		}
+	}
+
+	public int getTempo() {
+		if (this.movement == MovementEnum.FORWARD || this.movement == MovementEnum.BACKWARDS)
+			return (int) ((distance / 0.02) + 100);
+		else
+			return (int) (((Math.toRadians(this.angle) * this.radius) / 0.02) + 100);
+
+	}
+
+	private void log(String message) {
+		if (logger != null) {
+			logger.logMessage(message);
 		}
 	}
 }

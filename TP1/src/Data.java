@@ -53,7 +53,7 @@ public class Data {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public int getDelayStraightLine() {
 		return (int) ((distance / 0.02) + 100);
 	}
@@ -61,5 +61,4 @@ public class Data {
 	public int getDelayCurve() {
 		return (int) (((Math.toRadians(this.angle) * this.radius) / 0.02) + 100);
 	}
-
 }
