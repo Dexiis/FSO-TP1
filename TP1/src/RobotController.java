@@ -27,12 +27,10 @@ public class RobotController extends Thread {
 		while (true) {
 			switch (bufferState) {
 			case IDLE:
-				System.out.println("IDLE");
 				if (!buffer.isEmpty())
 					bufferState = BufferState.EXECUTE;
 				break;
 			case EXECUTE:
-				System.out.println("EXECUTE");
 				movement = buffer.get();
 				movement.doMovement();
 				waitingTime = movement.getTempo();
@@ -40,14 +38,11 @@ public class RobotController extends Thread {
 				bufferState = BufferState.WAIT;
 				break;
 			case WAIT:
-				System.out.println("WAIT");
 				if (System.currentTimeMillis() - timeStamp >= waitingTime)
 					if (buffer.isEmpty()) {
-						System.out.println("VAZIO???");
 						bufferState = BufferState.IDLE;
 						stopMovementSync();
 					} else {
-						System.out.println("CHEIOO??");
 						bufferState = BufferState.EXECUTE;
 					}
 				break;
