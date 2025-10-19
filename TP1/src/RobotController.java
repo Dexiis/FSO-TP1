@@ -43,10 +43,13 @@ public class RobotController extends Thread {
 				System.out.println("WAIT");
 				if (System.currentTimeMillis() - timeStamp >= waitingTime)
 					if (buffer.isEmpty()) {
+						System.out.println("VAZIO???");
 						bufferState = BufferState.IDLE;
 						stopMovementSync();
-					} else
+					} else {
+						System.out.println("CHEIOO??");
 						bufferState = BufferState.EXECUTE;
+					}
 				break;
 			}
 		}

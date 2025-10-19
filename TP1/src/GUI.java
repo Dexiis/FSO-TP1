@@ -199,6 +199,8 @@ public class GUI implements ILogger {
 				updateData();
 				robotController.stopMovement();
 				robotController.clearBuffer();
+				robotController.stopRandomMovements();
+				rdbtnRandomMovements.setSelected(false);
 			}
 		});
 		btnStop.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -39,7 +39,7 @@ public class Buffer {
 		return O;
 	}
 
-	private boolean isFull() {
+	public boolean isFull() {
 		return (count == CAPACITY);
 	}
 
@@ -62,5 +62,8 @@ public class Buffer {
 	
 	public void clearBuffer() {
 		this.buffer = new Movement[CAPACITY];
+		count = 0;
+		in = 0;
+		out = 0;
 	}
 }
