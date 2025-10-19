@@ -36,7 +36,7 @@ public class RandomMovements extends Thread {
 				for (int i = 0; i < this.actionNumber; i++) {
 					MovementEnum[] movement = MovementEnum.values();
 					int direction = random.nextInt(movement.length);
-					
+
 					robotController.updateData(random.nextInt(20) + 10, random.nextInt(70) + 20,
 							random.nextInt(40) + 10);
 
@@ -62,7 +62,6 @@ public class RandomMovements extends Thread {
 						i--;
 						break;
 					}
-
 
 					lastDirection = movement[direction];
 				}

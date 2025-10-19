@@ -59,7 +59,7 @@ public class Buffer {
 		count--;
 		return O;
 	}
-	
+
 	public void clearBuffer() {
 		this.buffer = new Movement[CAPACITY];
 		count = 0;
