@@ -49,14 +49,20 @@ public class RandomMovements extends Thread {
 					case FORWARD:
 						robotController.moveForward();
 						waitingTime += robotController.getDelayStraightLine();
+						robotController.bufferStopMovement();
+						waitingTime += 100;
 						break;
 					case RIGHT:
 						robotController.moveRightCurve();
 						waitingTime += robotController.getDelayCurve();
+						robotController.bufferStopMovement();
+						waitingTime += 100;
 						break;
 					case LEFT:
 						robotController.moveLeftCurve();
 						waitingTime += robotController.getDelayCurve();
+						robotController.bufferStopMovement();
+						waitingTime += 100;
 						break;
 					default:
 						i--;
@@ -64,7 +70,6 @@ public class RandomMovements extends Thread {
 					}
 
 					lastDirection = movement[direction];
-					robotController.bufferStopMovement();
 				}
 				STATE = State.WAIT;
 				timeStamp = System.currentTimeMillis();

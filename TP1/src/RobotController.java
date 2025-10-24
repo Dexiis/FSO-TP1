@@ -13,6 +13,8 @@ public class RobotController extends Thread {
 	private long timeStamp;
 
 	private ILogger logger;
+	
+	private boolean stopBetweenMovements;
 
 	private enum BufferState {
 		IDLE, WAIT, EXECUTE
@@ -83,23 +85,23 @@ public class RobotController extends Thread {
 	}
 
 	public void moveForward() {
-		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, data.getDistance()));
+		buffer.put(new Movement(robot, logger, MovementEnum.FORWARD, data.getDistance()));
 	}
 
 	public void moveBackwards() {
-		buffer.input(new Movement(robot, logger, MovementEnum.BACKWARDS, data.getDistance()));
+		buffer.put(new Movement(robot, logger, MovementEnum.BACKWARDS, data.getDistance()));
 	}
 
 	public void moveRightCurve() {
-		buffer.input(new Movement(robot, logger, MovementEnum.RIGHT, data.getRadius(), data.getAngle()));
+		buffer.put(new Movement(robot, logger, MovementEnum.RIGHT, data.getRadius(), data.getAngle()));
 	}
 
 	public void moveLeftCurve() {
-		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
+		buffer.put(new Movement(robot, logger, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
 	}
 	
 	public void bufferStopMovement() {
-		buffer.input(new Movement(robot, logger, MovementEnum.STOP));
+		buffer.put(new Movement(robot, logger, MovementEnum.STOP));
 	}
 
 	public void startRandomMovements() {
@@ -134,14 +136,18 @@ public class RobotController extends Thread {
 	}
 
 	public void fazOQuadradinho() {
-		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
-		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
-		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
-		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
-		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
-		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
-		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
-		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.put(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.put(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.put(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.put(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.put(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.put(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.put(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.put(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
 		stopMovementSync();
 	}
-}
+	
+	public void setStopBetweenMovements(boolean stopBetweenMovements) {
+		this.stopBetweenMovements = stopBetweenMovements;
+		}
+	}

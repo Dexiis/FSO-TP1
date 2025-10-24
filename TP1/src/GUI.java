@@ -255,9 +255,7 @@ public class GUI implements ILogger {
 		JRadioButton rdbtnStopBetweenMovements = new JRadioButton("Stop Between Movements");
 		rdbtnStopBetweenMovements.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (rdbtnStopBetweenMovements.isSelected()) {
-					
-				}
+					robotController.setStopBetweenMovements(rdbtnStopBetweenMovements.isSelected());
 			}
 		});
 		rdbtnStopBetweenMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));

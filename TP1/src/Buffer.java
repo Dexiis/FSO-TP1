@@ -1,6 +1,6 @@
 public class Buffer {
 
-	private static final int CAPACITY = 8;
+	private static final int CAPACITY = 16;
 
 	private Movement[] buffer;
 	private int count = 0;
@@ -47,7 +47,7 @@ public class Buffer {
 		return (count == 0);
 	}
 
-	public void input(Movement O) {
+	private void input(Movement O) {
 		buffer[in] = O;
 		in = (in + 1) % CAPACITY;
 		count++;
