@@ -22,6 +22,12 @@ public class Movement {
 		this.robot = robot;
 	}
 
+	public Movement(RobotLegoEV3 robot, ILogger logger, MovementEnum movement) {
+		this.logger = logger;
+		this.movement = movement;
+		this.robot = robot;
+	}
+	
 	public MovementEnum getMovement() {
 		return movement;
 	}
@@ -74,14 +80,20 @@ public class Movement {
 			log("O robô curvou à esquerda com um ângulo de " + this.angle + " graus e com um raio de " + this.radius
 					+ " centímetros.\n");
 			break;
+		case STOP:
+			robot.Parar(true);
+			log("O robô parou.\n");
+			break;
 		}
 	}
 
 	public int getTempo() {
 		if (this.movement == MovementEnum.FORWARD || this.movement == MovementEnum.BACKWARDS)
 			return (int) ((distance / 0.02) + 100);
-		else
+		else if (this.movement == MovementEnum.RIGHT || this.movement == MovementEnum.LEFT)
 			return (int) (((Math.toRadians(this.angle) * this.radius) / 0.02) + 100);
+		else
+			return 100;
 
 	}
 

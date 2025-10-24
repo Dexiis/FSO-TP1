@@ -87,7 +87,7 @@ public class RobotController extends Thread {
 	}
 
 	public void moveBackwards() {
-		buffer.input(new Movement(robot, logger, MovementEnum.BACKWARDS, -data.getDistance()));
+		buffer.input(new Movement(robot, logger, MovementEnum.BACKWARDS, data.getDistance()));
 	}
 
 	public void moveRightCurve() {
@@ -96,6 +96,10 @@ public class RobotController extends Thread {
 
 	public void moveLeftCurve() {
 		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, data.getRadius(), data.getAngle()));
+	}
+	
+	public void bufferStopMovement() {
+		buffer.input(new Movement(robot, logger, MovementEnum.STOP));
 	}
 
 	public void startRandomMovements() {
@@ -109,6 +113,7 @@ public class RobotController extends Thread {
 
 	public void stopMovement() {
 		robot.Parar(true);
+		this.waitingTime = 0;
 		log("O robô parou.\n");
 	}
 
@@ -128,4 +133,15 @@ public class RobotController extends Thread {
 		return data.getDelayCurve();
 	}
 
+	public void fazOQuadradinho() {
+		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		buffer.input(new Movement(robot, logger, MovementEnum.FORWARD, 20));
+		buffer.input(new Movement(robot, logger, MovementEnum.LEFT, 0, 90));
+		stopMovementSync();
+	}
 }

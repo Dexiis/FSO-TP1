@@ -64,13 +64,14 @@ public class RandomMovements extends Thread {
 					}
 
 					lastDirection = movement[direction];
+					robotController.bufferStopMovement();
 				}
 				STATE = State.WAIT;
 				timeStamp = System.currentTimeMillis();
 				break;
 
 			case WAIT:
-				if (System.currentTimeMillis() - timeStamp >= waitingTime) {
+				if (System.currentTimeMillis() - timeStamp >= waitingTime + 4000) {
 					if (this.working)
 						STATE = State.EXECUTE;
 					else

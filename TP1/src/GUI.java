@@ -162,7 +162,7 @@ public class GUI implements ILogger {
 			}
 		});
 		rdbtnRandomMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnRandomMovements.setBounds(422, 225, 187, 20);
+		rdbtnRandomMovements.setBounds(422, 225, 189, 20);
 		frmAd.getContentPane().add(rdbtnRandomMovements);
 
 		chckbxOnOff = new JCheckBox("Turn On");
@@ -242,6 +242,26 @@ public class GUI implements ILogger {
 		btnBackwards.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnBackwards.setBounds(246, 174, 156, 36);
 		frmAd.getContentPane().add(btnBackwards);
+		
+		JButton btnNewButton = new JButton("Square");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				robotController.fazOQuadradinho();
+			}
+		});
+		btnNewButton.setBounds(64, 214, 108, 36);
+		frmAd.getContentPane().add(btnNewButton);
+		
+		JRadioButton rdbtnStopBetweenMovements = new JRadioButton("Stop Between Movements");
+		rdbtnStopBetweenMovements.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnStopBetweenMovements.isSelected()) {
+					
+				}
+			}
+		});
+		rdbtnStopBetweenMovements.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		rdbtnStopBetweenMovements.setBounds(422, 260, 235, 20);
+		frmAd.getContentPane().add(rdbtnStopBetweenMovements);
 	}
-
 }
